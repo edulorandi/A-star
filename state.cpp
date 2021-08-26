@@ -36,5 +36,5 @@ bool State::isGoal() {
 
 // aqui a gente faz a euristica -> manhattan ou ruim
 int State::getH() {
-    
+    return 0;
 }
