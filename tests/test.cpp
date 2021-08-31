@@ -83,6 +83,11 @@ TEST_CASE( "Test getPossiblePositions", "[getPossiblePositions]" ) {
     std::vector<int> board2 = {1,2,3,4,5,0,6,7,8};
     std::vector<int> goal2 =   {1,2,3,4,0,5,6,7,8};
     State state2(board2, goal2, 0);
+    // possibleMoves = state2.getPossibleMoves();
+    // REQUIRE(std::find(possibleMoves.begin(), possibleMoves.end(),State::Board{1,0,3,4,2,5,6,7,8}) != possibleMoves.end());
+    // REQUIRE(std::find(possibleMoves.begin(), possibleMoves.end(),State::Board{1,2,3,0,4,5,6,7,8}) != possibleMoves.end());
+    // REQUIRE(std::find(possibleMoves.begin(), possibleMoves.end(),State::Board{1,2,3,4,5,0,6,7,8}) != possibleMoves.end());
+    // REQUIRE(std::find(possibleMoves.begin(), possibleMoves.end(),State::Board{1,2,3,4,7,5,6,0,8}) != possibleMoves.end());
 
 
     std::vector<int> board3 = {7,2,4,5,0,6,8,3,1};

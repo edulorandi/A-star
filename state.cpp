@@ -50,7 +50,7 @@ std::vector<State::Board> State::getPossibleMoves() {
         moves.push_back(swapElements(3,6));
         break;
     case 4:
-        moves.push_back(swapElements(4,2));
+        moves.push_back(swapElements(4,1));
         moves.push_back(swapElements(4,3));
         moves.push_back(swapElements(4,5));
         moves.push_back(swapElements(4,7));
