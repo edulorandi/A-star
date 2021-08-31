@@ -13,6 +13,7 @@ class State {
         //bool operator==(State & other);
         int getF();
         int getG();
+        
         // Distance from goal
         int getH();
 
@@ -20,6 +21,7 @@ class State {
 
         //
         std::vector<Board> getPossibleMoves();
+        Board swapElements(int i1, int i2);
         
         Board board_, goal_;
         int g_;
