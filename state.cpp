@@ -4,7 +4,26 @@
 State::State(Board board, Board goal, int g ) : board_(board), goal_(goal), g_(g){
 }
 
- int State::getEmptySpaceIndex() {
+std::vector<State> State::getSucessors() const {
+    auto possibleMoves = getPossibleMoves();
+    std::vector<State> sucessors;
+    std::transform(possibleMoves.begin(), possibleMoves.end(), std::back_inserter(sucessors),[this](auto const & sucessorBoard){
+        return State(sucessorBoard, goal_, getG()+1);
+    } );
+    return sucessors;
+}
+
+bool State::operator==(State const & other) const{
+    return goal_ == other.goal_ &&
+           board_ == other.board_ &&
+           getG() == other.getG();
+}
+
+bool State::operator!=(State const & other) const{
+    return !((*this)==other);
+}
+
+int State::getEmptySpaceIndex() const{
      for(int i = 0; i<board_.size(); ++i) {
          if( board_.at(i) == 0 ) {
              return i;
@@ -13,20 +32,20 @@ State::State(Board board, Board goal, int g ) : board_(board), goal_(goal), g_(g
      return board_.size();
  }
 
- std::vector<State> getSucessors() {
+std::vector<State> getSucessors() {
      // for each positibility:
     // list.add(posibility)
      return{};
  }
 
-State::Board State::swapElements(int i1, int i2) {
+State::Board State::swapElements(int i1, int i2) const{
     Board result = board_;
     result[i2] = board_[i1];
     result[i1] = board_[i2];
     return result;
 }
 
-std::vector<State::Board> State::getPossibleMoves() {
+std::vector<State::Board> State::getPossibleMoves() const{
     std::vector<State::Board> moves;
     switch (getEmptySpaceIndex())
     {
@@ -82,22 +101,22 @@ std::vector<State::Board> State::getPossibleMoves() {
 }
 
 
- int State::getF() {
+ int State::getF() const{
      return getG()+getH();
  }
 
-int State::getG() {
+int State::getG() const {
     return g_;
 }
 
-bool State::isGoal() {
+bool State::isGoal() const{
     return goal_ == board_;
 }
 
 // aqui a gente faz a euristica -> manhattan ou ruim
-int State::getH() {
+int State::getH() const {
     auto misplacedCells  = 0;
-    for(auto i = 0; i<9; ++i) {
+    for(auto i = 0; i<board_.size(); ++i) {
         if( goal_[i] != board_[i]) {
             misplacedCells++;
         }
