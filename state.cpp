@@ -1,14 +1,14 @@
 #include <array>
 #include "state.h"
 
-State::State(Board board, Board goal, int g ) : board_(board), goal_(goal), g_(g){
+State::State(Board board, Board goal, int g, State * parent ) : board_(board), goal_(goal), g_(g), parent_(parent){
 }
 
-std::vector<State> State::getSucessors() const {
+std::vector<State*> State::getSucessors() {
     auto possibleMoves = getPossibleMoves();
-    std::vector<State> sucessors;
+    std::vector<State*> sucessors;
     std::transform(possibleMoves.begin(), possibleMoves.end(), std::back_inserter(sucessors),[this](auto const & sucessorBoard){
-        return State(sucessorBoard, goal_, getG()+1);
+        return new State(sucessorBoard, goal_, getG()+1, this);
     } );
     return sucessors;
 }
@@ -21,6 +21,13 @@ bool State::operator==(State const & other) const{
 
 bool State::operator!=(State const & other) const{
     return !((*this)==other);
+}
+
+std::ostream& operator<<(std::ostream& os, State const& st){
+        os << st.board_[0] << " " << st.board_[1] << " " << st.board_[2] << std::endl; 
+        os << st.board_[3] << " " << st.board_[4] << " " << st.board_[5] << std::endl; 
+        os << st.board_[6] << " " << st.board_[7] << " " << st.board_[8] << std::endl; 
+        return os;
 }
 
 int State::getEmptySpaceIndex() const{
@@ -122,4 +129,8 @@ int State::getH() const {
         }
     }
     return misplacedCells;
+}
+
+State * State::getParent() {
+    return parent_;
 }
