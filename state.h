@@ -29,6 +29,7 @@ class State {
         int getH() const;
         // Distance from goal: manhattan
         int getH_Manhattan() const;
+        int getH_Manhattan2() const;
         int getG() const;
         State * getParent();
         

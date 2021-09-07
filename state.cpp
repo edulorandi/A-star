@@ -115,7 +115,7 @@ std::vector<State::Board> State::getPossibleMoves() const{
 
  int State::getF() const{
      //return getG()+getH();
-     return getG()+getH_Manhattan();
+     return getG()+getH_Manhattan2();
  }
 
 int State::getG() const {
@@ -135,6 +135,31 @@ int State::getH() const {
         }
     }
     return misplacedCells;
+}
+
+int State::getH_Manhattan2() const {
+    int x0, y0; //used for indexing each symbol in curr
+    int x1, y1; //correspoinding row and column of symbol from curr[y0, x0] at goal
+    int dx, dy; //change in x0 and x1, and y0 and y1, respectively
+    int sum = 0;
+
+    //for each symbol in curr
+    for(y0 = 0; y0 < 3; ++y0) {
+        for(x0 = 0; x0 < 3; ++x0) {
+            //find the coordinates of the same symbol in goal
+            for(y1 = 0; y1 < 3; ++y1) {
+                for(x1 = 0; x1 < 3; ++x1) {
+                    if(board_[y0+x0*3] == goal_[y1+x1*3]) {
+                        dx = (x0 - x1 < 0)? x1 - x0 : x0 - x1;
+                        dy = (y0 - y1 < 0)? y1 - y0 : y0 - y1;
+                        sum += dx + dy;
+                    }
+                }
+            }
+        }
+    }
+
+    return sum;
 }
 
 int State::getH_Manhattan() const {
