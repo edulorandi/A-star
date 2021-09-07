@@ -22,10 +22,13 @@ class State {
 
         // ** private methods ** //
         int getEmptySpaceIndex() const;
+        int getIndexWithValue(int value, Board board) const;
         std::vector<Board> getPossibleMoves() const;
         Board swapElements(int i1, int i2) const;
         // Distance from goal
         int getH() const;
+        // Distance from goal: manhattan
+        int getH_Manhattan() const;
         int getG() const;
         State * getParent();
         

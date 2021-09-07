@@ -45,27 +45,27 @@ TEST_CASE( "Test getH ruim", "[getH]" ) {
 
 }
 
-// TEST_CASE( "Test getH manhattan", "[getH]" ) {
+TEST_CASE( "Test getH manhattan", "[getH_Manhattan]" ) {
     
-//     std::vector<int> board = {1,2,3,4,0,5,6,7,8};
-//     std::vector<int> goal = {1,2,3,4,0,5,6,7,8};
+    std::vector<int> board = {1,2,3,4,0,5,6,7,8};
+    std::vector<int> goal = {1,2,3,4,0,5,6,7,8};
 
-//     State state(board, goal, 0);
-//     REQUIRE( state.getH() == 0);
+    State state(board, goal, 0);
+    REQUIRE( state.getH_Manhattan() == 0);
 
     
-//     std::vector<int> board2 = {1,2,3,4,5,0,6,7,8};
-//     std::vector<int> goal2 =   {1,2,3,4,0,5,6,7,8};
-//     State state2(board2, goal2, 0);
+    std::vector<int> board2 = {1,2,3,4,5,0,6,7,8};
+    std::vector<int> goal2 =   {1,2,3,4,0,5,6,7,8};
+    State state2(board2, goal2, 0);
 
-//     REQUIRE( state2.getH() == 1);
+    REQUIRE( state2.getH_Manhattan() == 2);
 
-//     std::vector<int> board3 = {7,2,4,5,0,6,8,3,1};
-//     std::vector<int> goal3 =   {0,1,2,3,4,5,6,7,8};
-//     State state3(board3, goal3, 0);
+    std::vector<int> board3 = {7,2,4,5,0,6,8,3,1};
+    std::vector<int> goal3 =   {0,1,2,3,4,5,6,7,8};
+    State state3(board3, goal3, 0);
 
-//     REQUIRE( state3.getH() == 18);
-// }
+    REQUIRE( state3.getH_Manhattan() == 20);
+}
 
 TEST_CASE( "Test getPossiblePositions", "[getPossiblePositions]" ) {
     

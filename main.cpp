@@ -90,7 +90,7 @@ int main () {
     //worst
     State::Board worstBoard = {5,6,7,4,0,8,3,2,1};
 
-    auto result = solve(easyBoard, goal);
+    auto result = solve(worstBoard, goal);
     if( result.finalState_ == nullptr ) {
         std::cout << "More than " << MAX_MOVES << " moves analysed and no solution, aborting" << std::endl;
         return 0;

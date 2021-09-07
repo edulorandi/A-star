@@ -31,13 +31,18 @@ std::ostream& operator<<(std::ostream& os, State const& st){
 }
 
 int State::getEmptySpaceIndex() const{
-     for(int i = 0; i<board_.size(); ++i) {
-         if( board_.at(i) == 0 ) {
+    return getIndexWithValue(0, board_);
+ }
+
+int State::getIndexWithValue(int value, Board board) const {
+    for(int i = 0; i<board.size(); ++i) {
+         if( board.at(i) == value) {
              return i;
          }
      }
      return board_.size();
- }
+}
+
 
 std::vector<State> getSucessors() {
      // for each positibility:
@@ -109,7 +114,8 @@ std::vector<State::Board> State::getPossibleMoves() const{
 
 
  int State::getF() const{
-     return getG()+getH();
+     //return getG()+getH();
+     return getG()+getH_Manhattan();
  }
 
 int State::getG() const {
@@ -129,6 +135,18 @@ int State::getH() const {
         }
     }
     return misplacedCells;
+}
+
+int State::getH_Manhattan() const {
+    auto cumulatedDistance  = 0;
+    for(auto i = 0; i<board_.size(); ++i) {
+        auto current_row = getIndexWithValue(i, board_)/3;
+        auto currnt_col = getIndexWithValue(i, board_)%3;
+        auto goal_row = getIndexWithValue(i, goal_)/3;
+        auto goal_col = getIndexWithValue(i, goal_)%3;
+        cumulatedDistance += std::abs(current_row-goal_row) + abs(currnt_col - goal_col);
+    }
+    return cumulatedDistance;
 }
 
 State * State::getParent() {
